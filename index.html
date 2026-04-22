@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>AI Agents Ensemble | Docker-оркестрация интеллектуальных агентов</title>
+    <!-- TailwindCSS + Font Awesome + Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Mermaid для диаграммы архитектуры -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background: #f9fafb; }
+        .gradient-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(0, 102, 204, 0.05) 0%, rgba(0, 0, 0, 0) 80%);
+        }
+        .card-hover {
+            transition: all 0.25s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+        }
+        .agent-badge {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .code-bg {
+            background: #0f172a;
+        }
+        .border-glow {
+            border-image: linear-gradient(95deg, #3b82f6, #06b6d4) 1;
+        }
+        .tech-icon {
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header / Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-robot text-2xl text-blue-600"></i>
+                <span class="font-bold text-xl bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">AI Agents Ensemble</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-600 font-medium">
+                <a href="#architecture" class="hover:text-blue-600 transition">Архитектура</a>
+                <a href="#agents" class="hover:text-blue-600 transition">Агенты</a>
+                <a href="#tech-stack" class="hover:text-blue-600 transition">Стек</a>
+                <a href="#workflow" class="hover:text-blue-600 transition">Поток данных</a>
+                <a href="#roadmap" class="hover:text-blue-600 transition">Планы</a>
+            </div>
+            <a href="#features" class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-md transition">Преимущества</a>
+        </div>
+    </nav>
+
+    <main class="overflow-hidden">
+        <!-- Hero Section -->
+        <section class="relative gradient-bg pt-16 pb-20 md:pt-24 md:pb-28">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-800 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
+                    <i class="fas fa-microchip"></i> <span>Микросервисная оркестрация</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight animate-fade-up">
+                    Ансамбль <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">AI-агентов</span><br>
+                    с Docker-оркестрацией
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mt-6 animate-fade-up delay-100">
+                    Распределённая система интеллектуальных агентов для создания качественного контента.<br>
+                    Асинхронная обработка, поддержка LLM, приватный поиск и Telegram-интеграция.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 mt-10 animate-fade-up delay-200">
+                    <div class="bg-white rounded-xl shadow-md px-5 py-2 flex items-center gap-2"><i class="fab fa-docker text-blue-500 text-xl"></i> <span class="font-mono text-sm">9 сервисов</span></div>
+                    <div class="bg-white rounded-xl shadow-md px-5 py-2 flex items-center gap-2"><i class="fas fa-arrow-right-arrow-left text-green-500"></i> <span class="font-mono text-sm">RabbitMQ</span></div>
+                    <div class="bg-white rounded-xl shadow-md px-5 py-2 flex items-center gap-2"><i class="fas fa-brain text-purple-500"></i> <span class="font-mono text-sm">Ollama / OpenRouter</span></div>
+                    <div class="bg-white rounded-xl shadow-md px-5 py-2 flex items-center gap-2"><i class="fab fa-telegram text-sky-500"></i> <span class="font-mono text-sm">Telegram Bot</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Grid -->
+        <section id="features" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Ключевые характеристики</h2>
+                    <p class="text-gray-500 mt-2 max-w-2xl mx-auto">Микросервисы, итеративная доработка, отказоустойчивость</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-6 rounded-2xl border border-gray-100 bg-gray-50/50 card-hover">
+                        <i class="fas fa-microservices text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-bold">Микросервисная архитектура</h3>
+                        <p class="text-gray-500 mt-2">9 независимых сервисов в Docker Compose с чётким разделением ответственности.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-gray-100 bg-gray-50/50 card-hover">
+                        <i class="fas fa-exchange-alt text-3xl text-green-500 mb-4"></i>
+                        <h3 class="text-xl font-bold">Асинхронная обработка</h3>
+                        <p class="text-gray-500 mt-2">RabbitMQ как единая точка коммуникации — очереди задач и результатов.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-gray-100 bg-gray-50/50 card-hover">
+                        <i class="fas fa-sync-alt text-3xl text-purple-500 mb-4"></i>
+                        <h3 class="text-xl font-bold">Итеративная доработка</h3>
+                        <p class="text-gray-500 mt-2">4 специализированных агента: разведчик → аналитик → писатель → критик.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-gray-100 bg-gray-50/50 card-hover">
+                        <i class="fas fa-cloud-upload-alt text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-xl font-bold">Multiple LLM с fallback</h3>
+                        <p class="text-gray-500 mt-2">Ollama (локально) + OpenRouter (облачный) + автоматический fallback.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-gray-100 bg-gray-50/50 card-hover">
+                        <i class="fas fa-search text-3xl text-cyan-600 mb-4"></i>
+                        <h3 class="text-xl font-bold">Приватный поиск</h3>
+                        <p class="text-gray-500 mt-2">SearXNG как основной источник, DuckDuckGo — резервный.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-gray-100 bg-gray-50/50 card-hover">
+                        <i class="fab fa-telegram text-3xl text-sky-500 mb-4"></i>
+                        <h3 class="text-xl font-bold">Telegram-интеграция</h3>
+                        <p class="text-gray-500 mt-2">Полный цикл от запроса до результата через удобного бота.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture + Mermaid Diagram -->
+        <section id="architecture" class="py-16 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-900">Архитектура системы</h2>
+                    <p class="text-gray-500 mt-2">Микросервисы, очереди RabbitMQ и внешние провайдеры</p>
+                </div>
+                <div class="bg-white rounded-2xl shadow-xl p-4 md:p-6 overflow-x-auto">
+                    <pre class="mermaid" style="background: white; text-align: center;">
+                        graph TB
+                            User[Пользователь Telegram] --> TelegramBot[Telegram Bot API]
+                            TelegramBot --> Orchestrator[Go-оркестратор]
+                            Orchestrator --> PostgreSQL[(PostgreSQL)]
+                            Orchestrator --> RabbitMQ[RabbitMQ]
+                            RabbitMQ --> Scout[Агент-разведчик]
+                            RabbitMQ --> Analyst[Агент-аналитик]
+                            RabbitMQ --> Writer[Агент-писатель]
+                            RabbitMQ --> Critic[Агент-критик]
+                            Scout --> SearXNG[SearXNG]
+                            Scout --> DuckDuckGo[DuckDuckGo]
+                            Analyst --> Ollama[Ollama LLM]
+                            Writer --> Ollama
+                            Critic --> Ollama
+                            Ollama --> Models[Qwen 2.5 1.5B]
+                            Orchestrator --> Result[Результат пользователю]
+                    </pre>
+                </div>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-white p-4 rounded-xl shadow-sm"><i class="fas fa-database text-blue-500 text-2xl"></i><p class="font-semibold mt-1">PostgreSQL</p><p class="text-xs text-gray-500">Хранение задач, JSON-контекст</p></div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm"><i class="fas fa-exchange-alt text-green-500 text-2xl"></i><p class="font-semibold mt-1">Очереди RabbitMQ</p><p class="text-xs text-gray-500">tasks.scout, analyst, writer, critic + results</p></div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm"><i class="fas fa-chart-line text-purple-500 text-2xl"></i><p class="font-semibold mt-1">Healthchecks + Retry</p><p class="text-xs text-gray-500">Автоматическое восстановление, fallback LLM</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agents (4 роли) -->
+        <section id="agents" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Специализированные агенты</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto mt-2">Каждый агент выполняет строго определённую роль в конвейере создания контента</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 p-6 shadow-md card-hover border-l-4 border-blue-500">
+                        <div class="flex items-center gap-2"><i class="fas fa-search text-blue-600 text-2xl"></i><h3 class="text-xl font-bold">Разведчик</h3></div>
+                        <div class="mt-2 text-sm text-gray-500">Температура 0.7</div>
+                        <p class="mt-3 text-gray-700">Поиск информации в интернете через SearXNG/DuckDuckGo, суммаризация с источниками.</p>
+                        <div class="mt-4 text-xs font-mono bg-gray-200 p-2 rounded">→ Результаты поиска + ссылки</div>
+                    </div>
+                    <div class="rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 p-6 shadow-md card-hover border-l-4 border-teal-500">
+                        <div class="flex items-center gap-2"><i class="fas fa-chart-simple text-teal-600 text-2xl"></i><h3 class="text-xl font-bold">Аналитик</h3></div>
+                        <div class="mt-2 text-sm text-gray-500">Температура 0.3</div>
+                        <p class="mt-3 text-gray-700">Обработка информации, выделение ключевых фактов и структурированный анализ.</p>
+                        <div class="mt-4 text-xs font-mono bg-gray-200 p-2 rounded">→ Ключевые тезисы</div>
+                    </div>
+                    <div class="rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 p-6 shadow-md card-hover border-l-4 border-amber-500">
+                        <div class="flex items-center gap-2"><i class="fas fa-feather-alt text-amber-600 text-2xl"></i><h3 class="text-xl font-bold">Писатель</h3></div>
+                        <div class="mt-2 text-sm text-gray-500">Температура 0.5</div>
+                        <p class="mt-3 text-gray-700">Генерация поста в блог: заголовок, структура, черновик.</p>
+                        <div class="mt-4 text-xs font-mono bg-gray-200 p-2 rounded">→ Черновик поста</div>
+                    </div>
+                    <div class="rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 p-6 shadow-md card-hover border-l-4 border-rose-500">
+                        <div class="flex items-center gap-2"><i class="fas fa-gavel text-rose-600 text-2xl"></i><h3 class="text-xl font-bold">Критик</h3></div>
+                        <div class="mt-2 text-sm text-gray-500">Температура 0.2</div>
+                        <p class="mt-3 text-gray-700">Рецензирование, оценка качества (1–10) и предложения по улучшению.</p>
+                        <div class="mt-4 text-xs font-mono bg-gray-200 p-2 rounded">→ Оценка + фидбек</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section id="tech-stack" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900">Технологический стек</h2>
+                    <p class="text-gray-500">Надёжные и современные инструменты для оркестрации, ИИ и поиска</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+                    <div class="bg-white rounded-xl p-4 text-center shadow-sm card-hover"><i class="fab fa-golang text-3xl text-blue-400"></i><p class="font-semibold mt-2">Go 1.24</p><p class="text-xs">Оркестратор</p></div>
+                    <div class="bg-white rounded-xl p-4 text-center shadow-sm card-hover"><i class="fab fa-python text-3xl text-yellow-500"></i><p class="font-semibold mt-2">Python 3.14</p><p class="text-xs">Агенты</p></div>
+                    <div class="bg-white rounded-xl p-4 text-center shadow-sm card-hover"><i class="fas fa-database text-3xl text-indigo-500"></i><p class="font-semibold mt-2">PostgreSQL 15</p><p class="text-xs">База задач</p></div>
+                    <div class="bg-white rounded-xl p-4 text-center shadow-sm card-hover"><i class="fas fa-code-branch text-3xl text-orange-600"></i><p class="font-semibold mt-2">RabbitMQ 3.12</p><p class="text-xs">Брокер сообщений</p></div>
+                    <div class="bg-white rounded-xl p-4 text-center shadow-sm card-hover"><i class="fas fa-brain text-3xl text-purple-600"></i><p class="font-semibold mt-2">Ollama</p><p class="text-xs">Qwen 2.5 1.5B</p></div>
+                    <div class="bg-white rounded-xl p-4 text-center shadow-sm card-hover"><i class="fas fa-search text-3xl text-cyan-600"></i><p class="font-semibold mt-2">SearXNG</p><p class="text-xs">Приватный метапоиск</p></div>
+                </div>
+                <div class="mt-8 flex flex-wrap justify-center gap-3 text-sm text-gray-600">
+                    <span class="bg-white px-4 py-2 rounded-full shadow-sm"><i class="fab fa-docker"></i> Docker Compose</span>
+                    <span class="bg-white px-4 py-2 rounded-full shadow-sm"><i class="fas fa-cloud"></i> OpenRouter (fallback)</span>
+                    <span class="bg-white px-4 py-2 rounded-full shadow-sm"><i class="fas fa-chart-line"></i> pgAdmin</span>
+                    <span class="bg-white px-4 py-2 rounded-full shadow-sm"><i class="fab fa-telegram"></i> Telegram Bot API</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow Data Flow -->
+        <section id="workflow" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-900">Поток создания контента</h2>
+                    <p class="text-gray-500">Асинхронная итеративная обработка: от запроса до финального поста</p>
+                </div>
+                <div class="flex flex-col md:flex-row justify-between items-start gap-4 bg-gray-50 p-6 rounded-2xl">
+                    <div class="flex-1 text-center p-3"><div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-user text-blue-600"></i></div><p class="font-bold mt-2">Запрос</p><p class="text-xs text-gray-500">Telegram /start</p></div>
+                    <i class="fas fa-arrow-right text-gray-400 hidden md:block mt-4"></i>
+                    <div class="flex-1 text-center p-3"><div class="bg-emerald-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-binoculars text-emerald-600"></i></div><p class="font-bold mt-2">Scout</p><p class="text-xs text-gray-500">Поиск + суммаризация</p></div>
+                    <i class="fas fa-arrow-right text-gray-400 hidden md:block mt-4"></i>
+                    <div class="flex-1 text-center p-3"><div class="bg-amber-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-chart-pie text-amber-600"></i></div><p class="font-bold mt-2">Analyst</p><p class="text-xs text-gray-500">Анализ и тезисы</p></div>
+                    <i class="fas fa-arrow-right text-gray-400 hidden md:block mt-4"></i>
+                    <div class="flex-1 text-center p-3"><div class="bg-indigo-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-pen-fancy text-indigo-600"></i></div><p class="font-bold mt-2">Writer</p><p class="text-xs text-gray-500">Генерация черновика</p></div>
+                    <i class="fas fa-arrow-right text-gray-400 hidden md:block mt-4"></i>
+                    <div class="flex-1 text-center p-3"><div class="bg-rose-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-star-of-life text-rose-600"></i></div><p class="font-bold mt-2">Critic</p><p class="text-xs text-gray-500">Оценка + фидбек</p></div>
+                    <i class="fas fa-arrow-right text-gray-400 hidden md:block mt-4"></i>
+                    <div class="flex-1 text-center p-3"><div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-check-double text-green-600"></i></div><p class="font-bold mt-2">Done</p><p class="text-xs text-gray-500">Пользователь получает пост</p></div>
+                </div>
+                <div class="mt-8 bg-gray-900 rounded-xl p-5 text-white font-mono text-sm overflow-x-auto">
+                    <p class="text-gray-300 mb-2">// Пример сообщения задачи (JSON)</p>
+                    <pre class="text-green-300">{
+  "task_id": 123,
+  "step": "scout",
+  "context": { "query": "искусственный интеллект в медицине", "iteration": 1 }
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap / Планы развития -->
+        <section id="roadmap" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900">Планы развития</h2>
+                    <p class="text-gray-500">Эволюция системы: от кэширования до мультимодальности</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl p-6 shadow-md border-t-4 border-blue-500">
+                        <i class="fas fa-clock text-blue-500 text-2xl mb-3"></i>
+                        <h3 class="text-xl font-bold">Краткосрочные (1-2 мес)</h3>
+                        <ul class="mt-3 space-y-2 text-gray-600 text-sm">
+                            <li><i class="fas fa-check-circle text-green-500 w-4"></i> Кэширование поиска (Redis)</li>
+                            <li><i class="fas fa-check-circle text-green-500 w-4"></i> Агент-редактор, иллюстратор</li>
+                            <li><i class="fas fa-chart-line"></i> Prometheus + Grafana</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md border-t-4 border-purple-500">
+                        <i class="fas fa-chart-line text-purple-500 text-2xl mb-3"></i>
+                        <h3 class="text-xl font-bold">Среднесрочные (3-6 мес)</h3>
+                        <ul class="mt-3 space-y-2 text-gray-600 text-sm">
+                            <li><i class="fas fa-language"></i> Поддержка multiple языков</li>
+                            <li><i class="fab fa-kubernetes"></i> Kubernetes + service mesh</li>
+                            <li><i class="fas fa-database"></i> Интеграция с научными БД</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md border-t-4 border-cyan-500">
+                        <i class="fas fa-rocket text-cyan-500 text-2xl mb-3"></i>
+                        <h3 class="text-xl font-bold">Долгосрочные (6+ мес)</h3>
+                        <ul class="mt-3 space-y-2 text-gray-600 text-sm">
+                            <li><i class="fas fa-brain"></i> Самообучающаяся система</li>
+                            <li><i class="fas fa-video"></i> Мультимодальность (видео/аудио)</li>
+                            <li><i class="fas fa-plug"></i> Экосистема плагинов и marketplace</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Масштабируемость и производительность (бонус) -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-8 text-white shadow-2xl">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div>
+                            <i class="fas fa-tachometer-alt text-4xl text-blue-300 mb-2 block"></i>
+                            <h3 class="text-2xl font-bold">Готова к масштабированию</h3>
+                            <p class="text-slate-300 max-w-xl mt-2">Горизонтальное масштабирование агентов, кластеризация RabbitMQ, несколько экземпляров Ollama и кэширование для высокой пропускной способности.</p>
+                        </div>
+                        <div class="flex gap-4 text-center">
+                            <div><span class="text-3xl font-bold text-blue-300">+200%</span><p class="text-xs">пропускная способность</p></div>
+                            <div><span class="text-3xl font-bold text-blue-300">&lt;30с</span><p class="text-xs">полный цикл</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-gray-400 py-12">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <div class="flex justify-center gap-6 text-2xl mb-4">
+                    <i class="fab fa-docker hover:text-white transition"></i>
+                    <i class="fab fa-golang hover:text-white transition"></i>
+                    <i class="fab fa-python hover:text-white transition"></i>
+                    <i class="fas fa-robot hover:text-white transition"></i>
+                </div>
+                <p class="text-sm">Ансамбль AI-агентов с Docker-оркестрацией — современное решение для автоматизированного создания контента.</p>
+                <p class="text-xs mt-4">© 2025 | Микросервисная архитектура | Асинхронная обработка | Итеративное качество</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Mermaid init -->
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { background: '#ffffff', primaryColor: '#3b82f6', primaryBorderColor: '#1e3a8a', lineColor: '#334155', secondaryColor: '#e2e8f0', tertiaryColor: '#f1f5f9' }, flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <!-- simple scroll animations without extra library -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.card-hover, .grid > div, .rounded-2xl, .bg-white').forEach(el => {
+            el.style.opacity = '0';
+            el.classList.add('transition-all', 'duration-500');
+            observer.observe(el);
+        });
+        // fix opacity for already visible elements? let's handle after load
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.animate-fade-up').forEach(el => el.style.opacity = '1');
+            document.querySelectorAll('.grid > div, .card-hover, .rounded-2xl:not(.mermaid)').forEach(el => {
+                if(el.getBoundingClientRect().top < window.innerHeight) {
+                    el.style.opacity = '1';
+                    el.classList.add('animate-fade-up');
+                } else {
+                    el.style.opacity = '0';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
