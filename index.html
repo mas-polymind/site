@@ -111,25 +111,64 @@
 <body class="antialiased">
 
     <!-- Header / Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-robot text-2xl text-blue-600"></i>
-                <span class="font-bold text-xl bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">MAS PolyMind<br>multi-agent system</span>
-            </div>
-            <div class="hidden md:flex space-x-6 text-gray-600 font-medium">
-                <a href="#architecture" class="hover:text-blue-600 transition">Архитектура</a>
-                <a href="#agents" class="hover:text-blue-600 transition">Агенты</a>
-                <a href="#tech-stack" class="hover:text-blue-600 transition">Стек</a>
-                <a href="#workflow" class="hover:text-blue-600 transition">Поток данных</a>
-                <a href="#roadmap" class="hover:text-blue-600 transition">Планы</a>
-                <a href="#team" class="hover:text-blue-600 transition">Команда</a>
-                <a href="chat.html" class="hover:text-blue-600 transition flex items-center gap-1">
-                <i class="fas fa-comment-dots"></i> Чат
-            </div>
-            <a href="#features" class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-md transition">Преимущества</a>
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between">
+        <!-- Логотип -->
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-robot text-2xl text-blue-600"></i>
+            <span class="font-bold text-xl bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">MAS PolyMind<br>multi-agent system</span>
         </div>
-    </nav>
+
+        <!-- Кнопка гамбургер (только на мобильных) -->
+        <button id="menu-btn" class="block md:hidden text-gray-600 hover:text-blue-600 focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+
+        <!-- Десктопное меню (на планшетах и выше) -->
+        <div class="hidden md:flex space-x-6 text-gray-600 font-medium items-center">
+            <a href="#architecture" class="hover:text-blue-600 transition">Архитектура</a>
+            <a href="#agents" class="hover:text-blue-600 transition">Агенты</a>
+            <a href="#tech-stack" class="hover:text-blue-600 transition">Стек</a>
+            <a href="#workflow" class="hover:text-blue-600 transition">Поток данных</a>
+            <a href="#roadmap" class="hover:text-blue-600 transition">Планы</a>
+            <a href="#team" class="hover:text-blue-600 transition">Команда</a>
+            <a href="chat.html" class="hover:text-blue-600 transition flex items-center gap-1">
+                <i class="fas fa-comment-dots"></i> Чат
+            </a>
+            <a href="#features" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-md transition">Преимущества</a>
+        </div>
+    </div>
+
+    <!-- Мобильное меню (скрыто по умолчанию) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 py-4 px-6 flex flex-col space-y-4 text-gray-600 font-medium">
+        <a href="#architecture" class="hover:text-blue-600 transition py-1">Архитектура</a>
+        <a href="#agents" class="hover:text-blue-600 transition py-1">Агенты</a>
+        <a href="#tech-stack" class="hover:text-blue-600 transition py-1">Стек</a>
+        <a href="#workflow" class="hover:text-blue-600 transition py-1">Поток данных</a>
+        <a href="#roadmap" class="hover:text-blue-600 transition py-1">Планы</a>
+        <a href="#team" class="hover:text-blue-600 transition py-1">Команда</a>
+        <a href="chat.html" class="hover:text-blue-600 transition flex items-center gap-2 py-1">
+            <i class="fas fa-comment-dots"></i> Чат
+        </a>
+        <a href="#features" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full text-sm font-semibold text-center transition mt-2">Преимущества</a>
+    </div>
+</nav>
+
+<script>
+    // Переключение мобильного меню
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+    // Закрываем меню при клике на любую ссылку (опционально)
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+</script>
 
     <main class="overflow-hidden">
         <!-- Hero Section -->
@@ -475,27 +514,27 @@
             });
         });
     </script>
-    <!-- Нижнее меню навигации -->
+<!-- Нижнее меню (только для мобильных) -->
 <div class="bottom-nav">
-    <a href="#" class="nav-item">
-        <i class="fas fa-home"></i>
-        <span>Главная</span>
+    <a href="#architecture" class="nav-item">
+        <i class="fas fa-cogs"></i>
+        <span>Архитектура</span>
     </a>
-    <a href="#" class="nav-item">
-        <i class="fas fa-info-circle"></i>
-        <span>О нас</span>
+    <a href="#agents" class="nav-item">
+        <i class="fas fa-brain"></i>
+        <span>Агенты</span>
     </a>
-    <a href="chat.html" class="nav-item chat-nav"> <!-- Замените путь на ваш chat.html -->
+    <a href="chat.html" class="nav-item chat-nav">
         <i class="fas fa-comment-dots"></i>
         <span>Чат</span>
     </a>
-    <a href="#" class="nav-item">
-        <i class="fas fa-bars"></i>
-        <span>Каталог</span>
+    <a href="#team" class="nav-item">
+        <i class="fas fa-users"></i>
+        <span>Команда</span>
     </a>
-    <a href="#" class="nav-item">
-        <i class="fas fa-user"></i>
-        <span>Профиль</span>
+    <a href="#features" class="nav-item">
+        <i class="fas fa-star"></i>
+        <span>Преимущества</span>
     </a>
 </div>
 </body>
