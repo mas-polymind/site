@@ -42,10 +42,71 @@
         .animate-fade-up {
             animation: fadeInUp 0.5s ease-out forwards;
         }
+                /* Стили для нижнего меню */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 70px; /* Отступ, чтобы контент не перекрывался меню */
+        }
+        /* Основное меню */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            text-decoration: none;
+            color: #888;
+            font-size: 12px;
+            transition: color 0.3s;
+            flex: 1;
+        }
+        .nav-item i {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .nav-item:hover {
+            color: #007bff;
+        }
+        /* Активная ссылка */
+        .nav-item.active {
+            color: #007bff;
+        }
+        /* Кнопка чата */
+        .chat-nav {
+            background-color: #007bff;
+            color: white;
+            border-radius: 30px;
+            padding: 5px 0;
+            margin: 0 10px;
+        }
+        .chat-nav:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        @media (min-width: 769px) {
+            .bottom-nav {
+                display: none; /* Скрываем на десктопе */
+            }
+            body {
+                padding-bottom: 0;
+            }
+        }
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
     </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="antialiased">
 
@@ -414,5 +475,28 @@
             });
         });
     </script>
+    <!-- Нижнее меню навигации -->
+<div class="bottom-nav">
+    <a href="#" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span>Главная</span>
+    </a>
+    <a href="#" class="nav-item">
+        <i class="fas fa-info-circle"></i>
+        <span>О нас</span>
+    </a>
+    <a href="chat.html" class="nav-item chat-nav"> <!-- Замените путь на ваш chat.html -->
+        <i class="fas fa-comment-dots"></i>
+        <span>Чат</span>
+    </a>
+    <a href="#" class="nav-item">
+        <i class="fas fa-bars"></i>
+        <span>Каталог</span>
+    </a>
+    <a href="#" class="nav-item">
+        <i class="fas fa-user"></i>
+        <span>Профиль</span>
+    </a>
+</div>
 </body>
 </html>
