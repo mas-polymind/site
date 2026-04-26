@@ -193,7 +193,7 @@
 
         function connectWebSocket() {
             if (ws && ws.readyState === WebSocket.OPEN) return;
-            ws = new WebSocket(`ws://polymind.ddns.net/ws`);
+            ws = new WebSocket(`wss://polymind.ddns.net/ws`);
             ws.onopen = () => {
                 console.log('WebSocket connected');
                 addMessage('✅ Подключение к серверу установлено', 'bot');
