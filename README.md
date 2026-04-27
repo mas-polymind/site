@@ -4,3 +4,6 @@ Multi-agent system
 сайт: https://mas-polymind.github.io/site/index.html
 
 Чат через Telegram-бота: https://t.me/poly_mind_ai_bot
+
+Примеры запросов/ответов https://github.com/mas-polymind/site/blob/main/examples.md
+
